@@ -1,0 +1,27 @@
+# .gitignore for Blazor web server and node_modules
+
+# Ignore build outputs
+bin/
+obj/
+
+# Ignore user-specific files
+*.swp
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignore node_modules
+node_modules/
+
+# Ignore npm debug log
+npm-debug.log*
+
+# Ignore JetBrains Rider IDE files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Ignore Visual Studio Code files
+.vscode/
+
