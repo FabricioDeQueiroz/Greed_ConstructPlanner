@@ -1,0 +1,189 @@
+@page "/Obras"
+
+<PageTitle>Obras</PageTitle>
+
+<div class="flex lg:flex-row md:flex-col items-start mt-12 md:mx-10 mx-24">
+    <EditForm Model="this" class="flex flex-col w-full items-center">
+        <p class="lg:text-3xl md:text-4xl text-slate-200 mb-10 mt-12">Cadastrar uma Obra:</p>
+        
+        <label class="input input-bordered flex bg-neutral items-center gap-2 lg:w-1/2 md:w-full lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-10 text-slate-100">
+            Nome da Obra:
+            <input @bind-value="_nome" type="text" class="grow text-slate-300 lg:text-lg md:text-3xl" minlength="3" placeholder="Tal tal" required/>
+            <ValidationMessage For="@(() => _nome)"/>
+        </label>
+
+        <div class="flex flex-row lg:w-1/2 md:w-full gap-x-5 justify-between">
+            <div class="flex flex-col lg:w-full md:w-full">
+                <label for="date" class="block ml-4 lg:text-lg md:text-3xl mb-2 text-slate-100">Data Final da Entrega:</label>
+                <input type="date" id="date" name="date" required class="input input-bordered flex bg-neutral items-center lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-10 text-slate-100 cursor-text">
+            </div>
+
+            <div class="flex flex-col lg:w-1/4 md:w-full">
+                <label for="color" class="block ml-4 lg:text-lg md:text-3xl mb-2 text-slate-100">Escolha uma cor:</label>
+                <input type="color" id="color" name="color" required class="input w-full input-bordered flex bg-neutral items-center lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-10 text-slate-100 cursor-pointer">
+            </div>
+        </div>
+
+        <p class="lg:text-3xl md:text-4xl text-slate-200 mb-10 mt-5">Duração das Etapas (em dias):</p>
+
+        <label class="input input-bordered flex bg-neutral items-center gap-2 lg:w-1/2 md:w-full lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-10 text-slate-100">
+            Projeto:
+            <input @bind-value="_qntdEps" type="number" class="grow text-slate-300 lg:text-lg md:text-3xl" min="0" placeholder="Ex. 30 dias" required/>
+            <ValidationMessage For="@(() => _qntdEps)"/>
+        </label>
+
+        <label class="input input-bordered flex bg-neutral items-center gap-2 lg:w-1/2 md:w-full lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-10 text-slate-100">
+            Formas:
+            <input @bind-value="_qntdEps" type="number" class="grow text-slate-300 lg:text-lg md:text-3xl" min="0" placeholder="Ex. 15 dias" required/>
+            <ValidationMessage For="@(() => _qntdEps)"/>
+        </label>
+
+        <label class="input input-bordered flex bg-neutral items-center gap-2 lg:w-1/2 md:w-full lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-10 text-slate-100">
+            Concretagem:
+            <input @bind-value="_qntdEps" type="number" class="grow text-slate-300 lg:text-lg md:text-3xl" min="0" placeholder="Ex. 15 dias" required/>
+            <ValidationMessage For="@(() => _qntdEps)"/>
+        </label>
+
+        <label class="input input-bordered flex bg-neutral items-center gap-2 lg:w-1/2 md:w-full lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-10 text-slate-100">
+            Transporte:
+            <input @bind-value="_qntdEps" type="number" class="grow text-slate-300 lg:text-lg md:text-3xl" min="0" placeholder="Ex. 7 dias" required/>
+            <ValidationMessage For="@(() => _qntdEps)"/>
+        </label>
+
+        <label class="input input-bordered flex bg-neutral items-center gap-2 lg:w-1/2 md:w-full lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-10 text-slate-100">
+            Montagem:
+            <input @bind-value="_qntdEps" type="number" class="grow text-slate-300 lg:text-lg md:text-3xl" min="0" placeholder="Ex. 20 dias" required/>
+            <ValidationMessage For="@(() => _qntdEps)"/>
+        </label>
+
+        <button type="submit" disabled="@_submitDisabled" class="btn btn-outline lg:w-1/4 md:w-full lg:h-16 md:h-24 lg:text-lg md:text-3xl md:mb-24 lg:mt-5 md:mt-5">CADASTRAR</button>
+    </EditForm>
+</div>
+
+@if (_toastVisible){
+    <div class="toast toast-center toast-middle ">
+        <div class="alert alert-info bg-neutral border-neutral w-fit lg:h-1/6 md:h-1/6">
+            <p class="text-slate-200 lg:text-3xl md:text-5xl text-justify leading-loose hyphens-auto" lang="pt-BR">@_message!</p>
+        </div>
+    </div>
+}
+
+@if (_submitLoad){
+    <div class="toast toast-center toast-middle">
+        <div class="bg-slate-800 p-5 rounded-xl w-fit lg:h-1/6 md:h-1/6 flex flex-col justify-center items-center">
+            <p class="text-slate-300 lg:text-3xl md:text-5xl text-justify leading-loose hyphens-auto mb-4" lang="pt-BR">Aguarde a conclusão do cadastro...</p>
+            <span class="loading loading-ring w-40 self-center justify-self-center text-green-600"></span>
+        </div>
+    </div>
+}
+
+@code
+{
+    // private List<Apoiador> _todosApoiadores = [];
+    
+    private string _nome = string.Empty;
+    private string _urlImagem = string.Empty;
+    private string _qntdEps = string.Empty;
+    private string _precoEps = string.Empty;
+    private string _senha = string.Empty;
+    private List<int> _apoiadores = [];
+
+    private string _apoiadorMessage = string.Empty;
+    private string _message = "Falha ao cadastrar";
+    private bool _toastVisible;
+    
+    private bool _submitDisabled;
+
+    private bool _submitLoad;
+    private bool _fetchLoad = true;
+    
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     await FetchApoiadores();
+    // }
+    //
+    // private async Task CadastrarObra()
+    // {
+    //     _submitDisabled = true;
+    //     _submitLoad = true;
+    //     
+    //     if (!_apoiadores.Any())
+    //     {
+    //         _message = "Selecione ao menos um apoiador";
+    //         
+    //         _ = MostrarToast();
+    //         
+    //         return;
+    //     }
+    //     
+    //     var novaObra = new
+    //     {
+    //         nome = _nome,
+    //         imagem = _urlImagem,
+    //         qntdEps = int.Parse(_qntdEps),
+    //         precoEps = decimal.Parse(_precoEps),
+    //         qntdDonatada = 0,
+    //         apoiadoresIds = _apoiadores
+    //     };
+    //     
+    //     var client = new HttpClient();
+    //     client.DefaultRequestHeaders.Add("X-API-KEY", _senha);
+    //     
+    //     var response = await client.PostAsJsonAsync("https://francescoapi.onrender.com/obra", novaObra);
+    //
+    //     _message = response.IsSuccessStatusCode ? "Obra cadastrada com sucesso" : "Falha ao cadastrar a obra";
+    //     
+    //     _ = MostrarToast();
+    // }
+    //
+    // private async Task FetchApoiadores()
+    // {
+    //     var client = new HttpClient();
+    //     var response = await client.GetAsync("https://francescoapi.onrender.com/apoiador");
+    //     
+    //     if (response.IsSuccessStatusCode)
+    //     {
+    //         var data = await response.Content.ReadFromJsonAsync<List<Apoiador>>();
+    //         if (data != null)
+    //         {
+    //             _todosApoiadores = data;
+    //             _apoiadorMessage = string.Empty;
+    //         }
+    //         else
+    //         {
+    //             _apoiadorMessage = "Erro ao obter apoiadores!";
+    //         }
+    //     }
+    //
+    //     _fetchLoad = false;
+    // }
+    //
+    // private void HandleApoiadores(ChangeEventArgs e)
+    // {
+    //     if (e.Value is string[] selectedValues)
+    //     {
+    //         _apoiadores = selectedValues.Select(int.Parse).ToList();
+    //     }
+    // }
+    //
+    // private async Task MostrarToast()
+    // {
+    //     _submitDisabled = false;
+    //     _submitLoad = false;
+    //     
+    //     _toastVisible = true;
+    //     StateHasChanged();
+    //     
+    //     await Task.Delay(3500);
+    //     
+    //     _toastVisible = false;
+    //     StateHasChanged();
+    //
+    //     _nome = string.Empty;
+    //     _urlImagem = string.Empty;
+    //     _qntdEps = string.Empty;
+    //     _precoEps = string.Empty;
+    //     _senha = string.Empty;
+    //     _apoiadores.Clear();
+    // }
+}
