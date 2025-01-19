@@ -1,26 +1,28 @@
+@inject IHttpClientFactory HttpClientFactory
+
 @page "/Obras"
 
 <PageTitle>Obras</PageTitle>
 
 <div class="flex lg:flex-row md:flex-col items-start mt-12 md:mx-10 mx-24">
-    <EditForm Model="this" class="flex flex-col w-full items-center">
+    <EditForm Model="this" OnValidSubmit="CadastrarObra" FormName="obraForm" class="flex flex-col w-full items-center">
         <p class="lg:text-3xl md:text-4xl text-slate-200 mb-10 mt-12">Cadastrar uma Obra:</p>
         
         <label class="input input-bordered flex bg-neutral items-center gap-2 lg:w-1/2 md:w-full lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-10 text-slate-100">
             Nome da Obra:
-            <input @bind-value="_nome" type="text" class="grow text-slate-300 lg:text-lg md:text-3xl" minlength="3" placeholder="Tal tal" required/>
+            <input @bind-value="_nome" type="text" class="grow text-slate-300 lg:text-lg md:text-3xl" minlength="3" maxlength="100" placeholder="Tal tal" required/>
             <ValidationMessage For="@(() => _nome)"/>
         </label>
 
         <div class="flex flex-row lg:w-1/2 md:w-full gap-x-5 justify-between">
             <div class="flex flex-col lg:w-full md:w-full">
                 <label for="date" class="block ml-4 lg:text-lg md:text-3xl mb-2 text-slate-100">Data Final da Entrega:</label>
-                <input type="date" id="date" name="date" required class="input input-bordered flex bg-neutral items-center lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-10 text-slate-100 cursor-text">
+                <input @bind-value="_data" type="date" id="date" name="date" required class="input input-bordered flex bg-neutral items-center lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-10 text-slate-100 cursor-text" onfocus="this.showPicker()">
             </div>
 
             <div class="flex flex-col lg:w-1/4 md:w-full">
                 <label for="color" class="block ml-4 lg:text-lg md:text-3xl mb-2 text-slate-100">Escolha uma cor:</label>
-                <input type="color" id="color" name="color" required class="input w-full input-bordered flex bg-neutral items-center lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-10 text-slate-100 cursor-pointer">
+                <input @bind-value="_cor" type="color" id="color" name="color" required class="input w-full input-bordered flex bg-neutral items-center lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-10 text-slate-100 cursor-pointer">
             </div>
         </div>
 
@@ -28,32 +30,27 @@
 
         <label class="input input-bordered flex bg-neutral items-center gap-2 lg:w-1/2 md:w-full lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-10 text-slate-100">
             Projeto:
-            <input @bind-value="_qntdEps" type="number" class="grow text-slate-300 lg:text-lg md:text-3xl" min="0" placeholder="Ex. 30 dias" required/>
-            <ValidationMessage For="@(() => _qntdEps)"/>
+            <input @bind-value="_projeto" type="number" class="grow text-slate-300 lg:text-lg md:text-3xl" min="0" placeholder="Ex. 30 dias" required/>
         </label>
 
         <label class="input input-bordered flex bg-neutral items-center gap-2 lg:w-1/2 md:w-full lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-10 text-slate-100">
             Formas:
-            <input @bind-value="_qntdEps" type="number" class="grow text-slate-300 lg:text-lg md:text-3xl" min="0" placeholder="Ex. 15 dias" required/>
-            <ValidationMessage For="@(() => _qntdEps)"/>
+            <input @bind-value="_formas" type="number" class="grow text-slate-300 lg:text-lg md:text-3xl" min="0" placeholder="Ex. 15 dias" required/>
         </label>
 
         <label class="input input-bordered flex bg-neutral items-center gap-2 lg:w-1/2 md:w-full lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-10 text-slate-100">
             Concretagem:
-            <input @bind-value="_qntdEps" type="number" class="grow text-slate-300 lg:text-lg md:text-3xl" min="0" placeholder="Ex. 15 dias" required/>
-            <ValidationMessage For="@(() => _qntdEps)"/>
+            <input @bind-value="_concretagem" type="number" class="grow text-slate-300 lg:text-lg md:text-3xl" min="0" placeholder="Ex. 15 dias" required/>
         </label>
 
         <label class="input input-bordered flex bg-neutral items-center gap-2 lg:w-1/2 md:w-full lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-10 text-slate-100">
             Transporte:
-            <input @bind-value="_qntdEps" type="number" class="grow text-slate-300 lg:text-lg md:text-3xl" min="0" placeholder="Ex. 7 dias" required/>
-            <ValidationMessage For="@(() => _qntdEps)"/>
+            <input @bind-value="_transporte" type="number" class="grow text-slate-300 lg:text-lg md:text-3xl" min="0" placeholder="Ex. 7 dias" required/>
         </label>
 
         <label class="input input-bordered flex bg-neutral items-center gap-2 lg:w-1/2 md:w-full lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-10 text-slate-100">
             Montagem:
-            <input @bind-value="_qntdEps" type="number" class="grow text-slate-300 lg:text-lg md:text-3xl" min="0" placeholder="Ex. 20 dias" required/>
-            <ValidationMessage For="@(() => _qntdEps)"/>
+            <input @bind-value="_montagem" type="number" class="grow text-slate-300 lg:text-lg md:text-3xl" min="0" placeholder="Ex. 20 dias" required/>
         </label>
 
         <button type="submit" disabled="@_submitDisabled" class="btn btn-outline lg:w-1/4 md:w-full lg:h-16 md:h-24 lg:text-lg md:text-3xl md:mb-24 lg:mt-5 md:mt-5">CADASTRAR</button>
@@ -77,113 +74,73 @@
     </div>
 }
 
-@code
-{
-    // private List<Apoiador> _todosApoiadores = [];
-    
+@code {
     private string _nome = string.Empty;
-    private string _urlImagem = string.Empty;
-    private string _qntdEps = string.Empty;
-    private string _precoEps = string.Empty;
-    private string _senha = string.Empty;
-    private List<int> _apoiadores = [];
+    private DateTime _data = DateTime.Today;
+    private string _cor = "#000000";
+    private string _projeto = string.Empty;
+    private string _formas = string.Empty;
+    private string _concretagem = string.Empty;
+    private string _transporte = string.Empty;
+    private string _montagem = string.Empty;
 
-    private string _apoiadorMessage = string.Empty;
     private string _message = "Falha ao cadastrar";
     private bool _toastVisible;
-    
     private bool _submitDisabled;
-
     private bool _submitLoad;
-    private bool _fetchLoad = true;
     
-    // protected override async Task OnInitializedAsync()
-    // {
-    //     await FetchApoiadores();
-    // }
-    //
-    // private async Task CadastrarObra()
-    // {
-    //     _submitDisabled = true;
-    //     _submitLoad = true;
-    //     
-    //     if (!_apoiadores.Any())
-    //     {
-    //         _message = "Selecione ao menos um apoiador";
-    //         
-    //         _ = MostrarToast();
-    //         
-    //         return;
-    //     }
-    //     
-    //     var novaObra = new
-    //     {
-    //         nome = _nome,
-    //         imagem = _urlImagem,
-    //         qntdEps = int.Parse(_qntdEps),
-    //         precoEps = decimal.Parse(_precoEps),
-    //         qntdDonatada = 0,
-    //         apoiadoresIds = _apoiadores
-    //     };
-    //     
-    //     var client = new HttpClient();
-    //     client.DefaultRequestHeaders.Add("X-API-KEY", _senha);
-    //     
-    //     var response = await client.PostAsJsonAsync("https://francescoapi.onrender.com/obra", novaObra);
-    //
-    //     _message = response.IsSuccessStatusCode ? "Obra cadastrada com sucesso" : "Falha ao cadastrar a obra";
-    //     
-    //     _ = MostrarToast();
-    // }
-    //
-    // private async Task FetchApoiadores()
-    // {
-    //     var client = new HttpClient();
-    //     var response = await client.GetAsync("https://francescoapi.onrender.com/apoiador");
-    //     
-    //     if (response.IsSuccessStatusCode)
-    //     {
-    //         var data = await response.Content.ReadFromJsonAsync<List<Apoiador>>();
-    //         if (data != null)
-    //         {
-    //             _todosApoiadores = data;
-    //             _apoiadorMessage = string.Empty;
-    //         }
-    //         else
-    //         {
-    //             _apoiadorMessage = "Erro ao obter apoiadores!";
-    //         }
-    //     }
-    //
-    //     _fetchLoad = false;
-    // }
-    //
-    // private void HandleApoiadores(ChangeEventArgs e)
-    // {
-    //     if (e.Value is string[] selectedValues)
-    //     {
-    //         _apoiadores = selectedValues.Select(int.Parse).ToList();
-    //     }
-    // }
-    //
-    // private async Task MostrarToast()
-    // {
-    //     _submitDisabled = false;
-    //     _submitLoad = false;
-    //     
-    //     _toastVisible = true;
-    //     StateHasChanged();
-    //     
-    //     await Task.Delay(3500);
-    //     
-    //     _toastVisible = false;
-    //     StateHasChanged();
-    //
-    //     _nome = string.Empty;
-    //     _urlImagem = string.Empty;
-    //     _qntdEps = string.Empty;
-    //     _precoEps = string.Empty;
-    //     _senha = string.Empty;
-    //     _apoiadores.Clear();
-    // }
+    private async Task CadastrarObra()
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(_cor))
+            {
+                _cor = "#000000";
+            }
+            
+            _submitDisabled = true;
+            _submitLoad = true;
+
+            var novaObra = new
+            {
+                name = _nome,
+                deadline = _data,
+                color = _cor,
+                project = _projeto,
+                mold = _formas,
+                concreting = _concretagem,
+                transport = _transporte,
+                mounting = _montagem
+            };
+            
+            var client = HttpClientFactory.CreateClient("LocalAPI");
+            var response = await client.PostAsJsonAsync("api/Obras/criar", novaObra);
+            
+            _message = response.IsSuccessStatusCode ? "Obra cadastrada com sucesso" : "Falha ao cadastrar a obra";
+        }
+        catch (Exception ex)
+        {
+            _message = $"Erro: {ex.Message}";
+        }
+        finally
+        {
+            await MostrarToast();
+        }
+    }
+
+
+    private async Task MostrarToast()
+    {
+        _submitDisabled = false;
+        _submitLoad = false;
+        _nome = string.Empty;
+    
+        _toastVisible = true;
+        StateHasChanged();
+        
+        await Task.Delay(3500);
+        
+        _toastVisible = false;
+        StateHasChanged();
+    }
 }
