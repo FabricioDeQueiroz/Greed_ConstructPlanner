@@ -1,0 +1,18 @@
+<div class="task relative">
+    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full text-sm text-gray-700">
+        @StartDate
+    </div>
+    <div class="@($"{BackgroundColor} text-white text-center p-4 rounded-lg w-40 h-20 flex items-center justify-center")">
+        @Text
+    </div>
+    <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full text-sm text-gray-700">
+        @EndDate
+    </div>
+</div>
+
+@code {
+    [Parameter] public string StartDate { get; set; }
+    [Parameter] public string EndDate { get; set; }
+    [Parameter] public string BackgroundColor { get; set; } = "bg-blue-500";
+    [Parameter] public string Text { get; set; }
+}
