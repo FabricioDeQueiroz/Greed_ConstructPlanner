@@ -30,7 +30,7 @@ namespace Construct_Planner.Controller
         }
         
         [HttpPost("criar")]
-        public async Task<IActionResult> CriarObra(Obra obra)
+        public async Task<IActionResult> CriarObra([FromBody] Obra obra)
         {
             if (!ModelState.IsValid)
             {
