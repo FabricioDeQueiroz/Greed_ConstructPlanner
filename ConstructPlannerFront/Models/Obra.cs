@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Construct_Planner_API.Models {
+namespace Construct_Planner.Models {
     public class Obra
     {
         public int Id { get; init; }
