@@ -1,7 +1,7 @@
+using Construct_Planner_API.Models;
 using Microsoft.EntityFrameworkCore;
-using Construct_Planner.Models;
 
-namespace Construct_Planner.Data
+namespace Construct_Planner_API.Data
 {
     public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {

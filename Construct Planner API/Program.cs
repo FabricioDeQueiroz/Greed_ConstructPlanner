@@ -1,9 +1,13 @@
-using Construct_Planner.Components;
-using Construct_Planner.Data;
+using Construct_Planner_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(8080);
+});
 
 // Configuração de Serviços
 ConfigureServices(builder.Services, builder.Configuration);
@@ -21,10 +25,6 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     // Configuração do banco de dados - PostgreSQL
     services.AddDbContext<AppDbContext>(options =>
         options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
-
-    // Adicionar serviços necessários para Blazor Server
-    services.AddRazorComponents()
-        .AddInteractiveServerComponents();
     
     services.AddControllers();
     services.AddEndpointsApiExplorer();
@@ -45,37 +45,21 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
                 .AllowAnyMethod();
         });
     });
-    
-    // Adicionar serviços ao contêiner
-    services.AddHttpClient("LocalAPI", client =>
-    {
-        client.BaseAddress = new Uri("http://localhost:5165/");
-    });
 }
 
 void ConfigureMiddleware(WebApplication apiapp)
 {
     // Usar CORS
     apiapp.UseCors("AllowAllOrigins");
-
-    if (apiapp.Environment.IsDevelopment())
-    {
-        apiapp.UseSwagger();
-        apiapp.UseSwaggerUI(c =>
-        {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Construct Planner v1");
-            c.InjectStylesheet("/css/SwaggerDark.css");
-        });
-    }
-
-    // Configuração do pipeline de requisições
-    apiapp.UseStaticFiles();
-    apiapp.UseRouting();
-
-    apiapp.UseAuthorization();
-    apiapp.UseAntiforgery();
     
+    apiapp.UseSwagger();
+    apiapp.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Construct Planner v1");
+        c.InjectStylesheet("/swagger-css/SwaggerDark.css");
+    });
+    apiapp.UseStaticFiles();
+    
+    apiapp.UseAuthorization();
     apiapp.MapControllers();
-
-    apiapp.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 }
