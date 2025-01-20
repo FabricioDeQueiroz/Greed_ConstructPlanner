@@ -1,0 +1,140 @@
+.timeline-container {
+    width: 100%;
+    height: 400px;
+    margin: 2rem 0;
+    background-color: #1f2937;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #374151;
+}
+
+.vis-timeline {
+    border: none;
+    background-color: transparent;
+    color: #e2e8f0;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.vis-panel.vis-center,
+.vis-panel.vis-left,
+.vis-panel.vis-right {
+    border-color: #374151;
+}
+
+.vis-item {
+    border-width: 1px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    color: #f3f4f6;
+    padding: 4px 8px;
+    min-height: 32px !important;
+}
+
+.vis-item.vis-selected {
+    border-color: #60a5fa;
+    background-color: #2563eb;
+    z-index: 2;
+}
+
+.vis-time-axis .vis-text {
+    color: #e2e8f0;
+    font-size: 0.875rem;
+}
+
+.vis-time-axis .vis-grid.vis-minor,
+.vis-time-axis .vis-grid.vis-major {
+    border-color: #374151;
+}
+
+.vis-timeline .vis-group {
+    border-color: #374151;
+    background-color: #111827;
+}
+
+.timeline-group-label {
+    font-weight: 500;
+    padding: 4px 8px;
+    color: inherit;
+}
+
+.vis-item .vis-item-content {
+    padding: 2px 4px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.vis-item.timeline-deadline {
+    background-color: transparent;
+    border-left-width: 2px;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    width: 0;
+    padding: 0;
+    margin-left: -1px;
+    height: 100%;
+}
+
+.vis-item.timeline-deadline .vis-item-content {
+    display: none;
+}
+
+.vis-label {
+    color: #e2e8f0;
+    font-weight: 500;
+    padding: 4px 8px;
+}
+
+.vis-panel.vis-background.vis-horizontal .vis-grid.vis-minor {
+    border-color: #374151;
+}
+
+.vis-panel.vis-background.vis-horizontal .vis-grid.vis-major {
+    border-color: #4b5563;
+}
+
+.vis-timeline .vis-panel.vis-bottom,
+.vis-timeline .vis-panel.vis-center,
+.vis-timeline .vis-panel.vis-left,
+.vis-timeline .vis-panel.vis-right,
+.vis-timeline .vis-panel.vis-top {
+    border-color: #374151;
+}
+
+.timeline-deadline-box {
+    padding: 1px 1px !important;
+    border-radius: 4px !important;
+    font-size: 0.75rem !important;
+    text-align: center !important;
+    border-width: 0px !important;
+    margin-left: 11px !important;
+    pointer-events: none !important;
+}
+
+.timeline-deadline-box:before {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: 50%;
+    width: 4px;
+    height: 1px;
+    background-color: inherit;
+}
+
+/* Estilo para o nome da obra na timeline */
+.vis-label .vis-inner {
+    color: #e2e8f0 !important;
+    font-weight: 500 !important;
+}
+
+/* Aumenta a altura das linhas da timeline */
+.vis-item.vis-range {
+    height: 48px !important;
+    line-height: 36px !important;
+}
+
+.vis-labelset .vis-label {
+    height: 48px !important;
+    line-height: 48px !important;
+}
