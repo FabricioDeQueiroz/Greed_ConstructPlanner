@@ -8,7 +8,7 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Construct Planner API.csproj", "/ConstructPlannerAPI/"]
-RUN dotnet restore "/Construct Planner API/Construct Planner API.csproj"
+RUN dotnet restore "/ConstructPlannerAPI/Construct Planner API.csproj"
 COPY . /ConstructPlannerAPI
 WORKDIR /ConstructPlannerAPI
 RUN mkdir -p /app/build/publish
@@ -21,6 +21,6 @@ RUN dotnet publish "Construct Planner API.csproj" -c $BUILD_CONFIGURATION -o /ap
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY --from=build /FrancescoAPI/Data /app/Data
+COPY --from=build /ConstructPlannerAPI/Data /app/Data
 RUN ls /app/Data && echo "Database file exists!" || echo "Database file not found!"
 ENTRYPOINT ["dotnet", "Construct Planner API.dll"]
