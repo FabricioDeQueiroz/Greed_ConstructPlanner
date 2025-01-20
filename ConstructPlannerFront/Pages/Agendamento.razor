@@ -1,0 +1,210 @@
+@page "/Agendamento"
+@using System.Globalization
+@using System.Net.Http.Json
+@inject HttpClient Http
+@inject IJSRuntime JsRuntime
+@implements IAsyncDisposable
+
+<PageTitle>Agendamento - ConstructPlanner</PageTitle>
+
+<HeadContent>
+    <link href="https://unpkg.com/vis-timeline@7.7.2/dist/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/timeline.css" rel="stylesheet" />
+</HeadContent>
+
+<div class="w-full p-5 flex flex-col items-center justify-center mb-28">
+    <div class="flex flex-col items-center gap-4 self-center mt-12">
+        <input @bind="dataInicial" type="date" id="date" name="date" class="input input-bordered flex bg-neutral items-center lg:h-16 md:h-24 lg:text-lg md:text-3xl text-slate-100 cursor-text" onfocus="this.showPicker()">
+        <button @onclick="LoadAgendamentos" class="btn btn-outline w-full lg:h-16 md:h-24 lg:text-lg md:text-3xl mb-28 lg:mt-5 md:mt-5">Calcular Agendamento</button>
+    </div>
+
+    @if (loading)
+    {
+        <div class="text-center">
+            <p class="text-2xl">Carregando agendamento...</p>
+        </div>
+    }
+    else if (agendamentos == null || !agendamentos.Any())
+    {
+        <div class="text-center mt-8">
+            <p class="text-2xl">Nenhum agendamento encontrado.</p>
+        </div>
+    }
+    else
+    {
+        <div class="mt-8 w-full">
+            <h4 class="text-3xl font-bold text-center">Agendamento</h4>
+            @if (showTimeline)
+            {
+                <div @ref="timelineElement" class="timeline-container mb-8"></div>
+            }
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+                @foreach (var agendamento in agendamentos.OrderByDescending(a => a.maxLateness))
+                {
+                    <div class="bg-gray-800 p-4 rounded-lg shadow text-white" style="border-left: 4px solid @agendamento.obra.color">
+                        <div class="flex justify-between items-start">
+                            <h5 class="text-2xl font-bold mb-2">@agendamento.obra.name</h5>
+                            @if (agendamento.maxLateness > 0)
+                            {
+                                <span class="text-red-400 font-semibold text-xl">@agendamento.maxLateness dias de atraso</span>
+                            }
+                            else
+                            {
+                                <span class="text-green-400 font-semibold text-xl">No prazo</span>
+                            }
+                        </div>
+                        <div class="text-lg">
+                            <div class="grid grid-cols-1 gap-2">
+                                <div>
+                                    <p class="font-semibold text-xl text-primary">Deadline:</p>
+                                    <p class="text-lg text-gray-200">@DateTime.Parse(agendamento.obra.deadline).ToLocalTime().ToString("dd/MM/yyyy")</p>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <p class="font-semibold text-xl mb-3 text-primary">Cronograma:</p>
+                                <div class="grid grid-cols-[120px_1fr] gap-x-2 gap-y-1">
+                                    <span class="font-medium text-gray-300">Projeto:</span>
+                                    <p class="text-lg text-gray-200">@agendamento.dataInicioProjeto.ToLocalTime().ToString("dd/MM/yyyy")</p>
+                                    <span class="font-medium text-gray-300">Formas:</span>
+                                    <p class="text-lg text-gray-200">@agendamento.dataInicioFormas.ToLocalTime().ToString("dd/MM/yyyy")</p>
+                                    <span class="font-medium text-gray-300">Concretagem:</span>
+                                    <p class="text-lg text-gray-200">@agendamento.dataInicioConcretagem.ToLocalTime().ToString("dd/MM/yyyy")</p>
+                                    <span class="font-medium text-gray-300">Transporte:</span>
+                                    <p class="text-lg text-gray-200">@agendamento.dataInicioTransporte.ToLocalTime().ToString("dd/MM/yyyy")</p>
+                                    <span class="font-medium text-gray-300">Montagem:</span>
+                                    <p class="text-lg text-gray-200">@agendamento.dataInicioMontagem.ToLocalTime().ToString("dd/MM/yyyy")</p>
+                                    <span class="font-medium text-gray-300">Conclusão:</span>
+                                    <p class="text-lg text-gray-200">@agendamento.dataFimMontagem.ToLocalTime().ToString("dd/MM/yyyy")</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private List<AgendamentoResponse>? agendamentos;
+    private bool loading = false;
+    private DateTime dataInicial = DateTime.Today;
+    private bool timelineInitialized = false;
+    private bool showTimeline = false;
+    private ElementReference timelineElement;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JsRuntime.InvokeVoidAsync("import", "https://unpkg.com/vis-timeline@7.7.2/dist/vis-timeline-graph2d.min.js");
+            await JsRuntime.InvokeVoidAsync("import", "/js/timeline.js");
+        }
+
+        try
+        {
+            if (showTimeline && !timelineInitialized && agendamentos != null && agendamentos.Any())
+            {
+                await Task.Delay(100); // Pequeno delay para garantir que o DOM está pronto
+                await JsRuntime.InvokeVoidAsync("console.log", "Inicializando timeline...");
+                await JsRuntime.InvokeVoidAsync("timelineInterop.initialize", timelineElement);
+                timelineInitialized = true;
+                await JsRuntime.InvokeVoidAsync("console.log", "Timeline inicializada");
+                await JsRuntime.InvokeVoidAsync("timelineInterop.updateData", agendamentos);
+            }
+        }
+        catch (Exception ex)
+        {
+            await JsRuntime.InvokeVoidAsync("console.error", "Erro na timeline:", ex.Message);
+        }
+    }
+
+    private async Task LoadAgendamentos()
+    {
+        try
+        {
+            loading = true;
+            showTimeline = false;
+            timelineInitialized = false;
+            StateHasChanged();
+
+            var request = new CalcularAgendamentoRequest { DataInicial = dataInicial };
+            await JsRuntime.InvokeVoidAsync("console.log", "Enviando request:", request);
+
+            var response = await Http.PostAsJsonAsync("http://localhost:8080/api/Agendamento/calcular", request);
+            await JsRuntime.InvokeVoidAsync("console.log", "Status da resposta:", response.StatusCode);
+            
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                await JsRuntime.InvokeVoidAsync("console.log", "Conteúdo da resposta:", responseContent);
+
+                agendamentos = await response.Content.ReadFromJsonAsync<List<AgendamentoResponse>>();
+                await JsRuntime.InvokeVoidAsync("console.log", "Agendamentos deserializados:", agendamentos);
+
+                if (agendamentos != null && agendamentos.Any())
+                {
+                    showTimeline = true;
+                    await JsRuntime.InvokeVoidAsync("console.log", "Atualizando timeline com", agendamentos.Count, "agendamentos");
+                }
+                else
+                {
+                    await JsRuntime.InvokeVoidAsync("console.warn", "Nenhum agendamento retornado da API");
+                }
+            }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                await JsRuntime.InvokeVoidAsync("console.error", "Erro na API:", errorContent);
+                agendamentos = null;
+            }
+        }
+        catch (Exception ex)
+        {
+            await JsRuntime.InvokeVoidAsync("console.error", "Erro ao carregar agendamentos:", ex.Message);
+            agendamentos = null;
+        }
+        finally
+        {
+            loading = false;
+            StateHasChanged();
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        // Cleanup if needed in the future
+        await ValueTask.CompletedTask;
+    }
+
+    public class CalcularAgendamentoRequest
+    {
+        public DateTime DataInicial { get; set; }
+    }
+
+    public class ObraResponse
+    {
+        public int id { get; set; }
+        public string name { get; set; } = "";
+        public string color { get; set; } = "";
+        public string deadline { get; set; } = "";
+        public int diasProjeto { get; set; }
+        public int diasFormas { get; set; }
+        public int diasConcretagem { get; set; }
+        public int diasTransporte { get; set; }
+        public int diasMontagem { get; set; }
+    }
+
+    public class AgendamentoResponse
+    {
+        public ObraResponse obra { get; set; } = new();
+        public DateTime dataInicioProjeto { get; set; }
+        public DateTime dataInicioFormas { get; set; }
+        public DateTime dataInicioConcretagem { get; set; }
+        public DateTime dataInicioTransporte { get; set; }
+        public DateTime dataInicioMontagem { get; set; }
+        public DateTime dataFimMontagem { get; set; }
+        public int maxLateness { get; set; }
+    }
+}
