@@ -244,4 +244,4 @@ Este guia fornece as etapas essenciais para rodar um projeto Blazor WebAssembly 
 ## Outros
 
 Os códigos principais que implementam a aplicação do Algoritmo Ambicioso do projeto se encontram no diretório `'Greed_ConstructPlanner/Construct Planner API'/`:
-- No arquivo `AgendamentoController.cs` no diretório `'Construct Planner API'/Controller` se encontra o endpoint do tipo POST `api/Agendamento/calcular` da função `CalcularAgendamento()`, o qual implementa o algoritmo ambicioso _"Scheduling to Minimize Lateness"_, que é o algoritmo mais importante para o trabalho.
+- No arquivo **[AgendamentoController.cs](./Construct%20Planner%20API/Controller/AgendamentoController.cs)** no diretório `'Construct Planner API'/Controller` se encontra o endpoint do tipo POST `api/Agendamento/calcular` da função `CalcularAgendamento()`, o qual implementa o algoritmo ambicioso _"Scheduling to Minimize Lateness"_, que é o algoritmo mais importante para o trabalho.
