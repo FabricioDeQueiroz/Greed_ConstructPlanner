@@ -9,12 +9,13 @@
 | 202046087 | Fabrício Macedo de Queiroz  |
 | 202046004 | Caio Moreira Sulz Gonsalves |
 
+<br>
 
-# Sobre
+## Sobre
 
 O **Construct Planner** é uma aplicação web desenvolvida para auxiliar no cadastro e gerenciamento de obras, com o objetivo principal de analisar e controlar o tempo total de construção, minimizando atrasos. A aplicação oferece uma abordagem estruturada para a gestão de cada etapa da obra, garantindo uma melhor previsão e controle de cronogramas.
 
-## Etapas da Obra
+### Etapas da Obra
 
 Cada obra cadastrada no sistema passa por diversas etapas, que demandam dias para serem concluídas. Sendo elas:
 
@@ -24,7 +25,7 @@ Cada obra cadastrada no sistema passa por diversas etapas, que demandam dias par
 - **Transporte** das Peças
 - **Montagem** da Obra
 
-## Funcionalidades
+### Funcionalidades
 
 Após o usuário cadastrar às Obras, o sistema permite:
 
@@ -32,6 +33,8 @@ Após o usuário cadastrar às Obras, o sistema permite:
 - **Análise de Atrasos**: Identificação de atrasos em dias de cada Obra, permitindo um melhor planejamento e tomada de decisões acerca de aceitar novas obras ou finalizar as existentes.
 
 Utilizando o algoritmo **Scheduling to Minimize Lateness**, a aplicação ajuda a minimizar o atraso máximo na sequência de Obras que precisam ser concluídas. Isso assegura que cada etapa seja iniciada o mais cedo possível e contribui para uma gestão eficiente do cronograma das Obras.
+
+<br>
 
 ## Screenshots
 
@@ -57,6 +60,7 @@ Utilizando o algoritmo **Scheduling to Minimize Lateness**, a aplicação ajuda 
 
 </center>
 
+<br>
 
 ## Linguagens/Frameworks
 
@@ -100,15 +104,17 @@ Utilizando o algoritmo **Scheduling to Minimize Lateness**, a aplicação ajuda 
     </tr>
 </table>
 
-# Uso
+<br>
 
-## Acesso à Aplicação
+## Uso
+
+### Acesso à Aplicação
 
 Você pode acessar a aplicação pelo seguinte link: [Construct Planner](https://construct-planner.pages.dev/)
 
 Esta aplicação foi desenvolvida para auxiliar no gerenciamento de obras e agendamentos de suas etapas. Utilize as seguintes páginas para interagir com o sistema:
 
-## Obras
+### Obras
 
 Nesta página, você pode cadastrar novas obras. Para cada obra, é necessário especificar os seguintes detalhes:
 
@@ -122,14 +128,14 @@ Nesta página, você pode cadastrar novas obras. Para cada obra, é necessário 
     - **Transporte**
     - **Montagem**
 
-## Agendamento
+### Agendamento
 
 Nesta página, o sistema calcula e exibe o agendamento das obras cadastradas. Os seguintes detalhes são apresentados:
 
 - **Cronogramas Detalhados**: Visualize o cronograma completo de cada obra.
 - **Possíveis Atrasos**: Identifique obras que sofreram atrasos e obras que foram concluídas no prazo.
 
-## Algoritmo Utilizado
+### Algoritmo Utilizado
 
 A aplicação utiliza o algoritmo **Scheduling to Minimize Lateness**. Este algoritmo é projetado para minimizar o atraso máximo em uma sequência de tarefas. O funcionamento básico é o seguinte:
 
@@ -139,12 +145,13 @@ A aplicação utiliza o algoritmo **Scheduling to Minimize Lateness**. Este algo
 
 Este processo permite uma gestão eficiente do cronograma, garantindo que o impacto dos atrasos seja minimizado ao longo das várias etapas das obras.
 
+<br>
 
-# Manual de como Rodar Localmente
+## Manual de como Rodar Localmente
 
 Este guia explica como configurar e rodar localmente um projeto Blazor WebAssembly para o Frontend e um projeto ASP.NET Core para o Backend. Siga as instruções abaixo para preparar o ambiente.
 
-## Pré-requisitos
+### Pré-requisitos
 
 1. **.NET SDK**: Certifique-se de que o [SDK do .NET](https://dotnet.microsoft.com/en-us/download/dotnet) está instalado.
 
@@ -158,9 +165,9 @@ Este guia explica como configurar e rodar localmente um projeto Blazor WebAssemb
 
 3. **Navegador Compatível**: Para executar o projeto Blazor WebAssembly, você precisará de um navegador moderno como Google Chrome, Microsoft Edge, ou Mozilla Firefox.
 
-## Instruções para Rodar
+### Instruções para Rodar
 
-### Passos Comuns
+#### Passos Comuns
 
 1. **Clone o Repositório**: Clone o repositório do projeto que contém o Blazor WebAssembly e o ASP.NET Core.
 
@@ -222,6 +229,8 @@ Este guia explica como configurar e rodar localmente um projeto Blazor WebAssemb
 
 Este guia fornece as etapas essenciais para rodar um projeto Blazor WebAssembly e ASP .NET Core localmente. Siga os passos acima para configurar seu ambiente e executar os projetos corretamente.
 
+<br>
+
 ## Vídeos Explicando o Projeto
 
 <a href="LINK AQUI">
@@ -229,6 +238,8 @@ Este guia fornece as etapas essenciais para rodar um projeto Blazor WebAssembly 
 </a>
 
 [Vídeo de Apresentação](LINK AQUI TAMBÉM)
+
+<br>
 
 ## Outros
 
