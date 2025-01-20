@@ -132,7 +132,7 @@
             var request = new CalcularAgendamentoRequest { DataInicial = dataInicial };
             await JsRuntime.InvokeVoidAsync("console.log", "Enviando request:", request);
 
-            var response = await Http.PostAsJsonAsync("http://localhost:8080/api/Agendamento/calcular", request);
+            var response = await Http.PostAsJsonAsync("https://construct-planner.onrender.com/api/Agendamento/calcular", request);
             await JsRuntime.InvokeVoidAsync("console.log", "Status da resposta:", response.StatusCode);
             
             if (response.IsSuccessStatusCode)

@@ -1,9 +1,9 @@
 {
   "mainAssemblyName": "ConstructPlannerFront",
   "resources": {
-    "hash": "sha256-WLHttadnUc62oqN5oyM0Ko3S3zhSIz0gwQsZra7oXng=",
+    "hash": "sha256-S6yI2WkmEp3TndLcZUdwKCd+xsAOObIIUBdjUvxr6P8=",
     "fingerprinting": {
-      "ConstructPlannerFront.l63drajmb9.wasm": "ConstructPlannerFront.wasm",
+      "ConstructPlannerFront.dhkrlt3fgl.wasm": "ConstructPlannerFront.wasm",
       "Microsoft.AspNetCore.Components.Forms.2jrol0tvq7.wasm": "Microsoft.AspNetCore.Components.Forms.wasm",
       "Microsoft.AspNetCore.Components.5wcvuf2ybw.wasm": "Microsoft.AspNetCore.Components.wasm",
       "Microsoft.AspNetCore.Components.Web.8btxwmb2ku.wasm": "Microsoft.AspNetCore.Components.Web.wasm",
@@ -67,7 +67,7 @@
       "System.Runtime.InteropServices.JavaScript.3uvku0ibnu.wasm": "sha256-K5wa4QwWB8A0OrHM4yWK86Nl6ItEv9c3ctAASLMYLKo="
     },
     "assembly": {
-      "ConstructPlannerFront.l63drajmb9.wasm": "sha256-XWQeANV9g6pZJnkuNkIrJjhO3I9grU+bdaY2t/xR940=",
+      "ConstructPlannerFront.dhkrlt3fgl.wasm": "sha256-j6YmdKssro3kU33TrEWcmN2mX03q1wC3q2mDDTeaHjM=",
       "Microsoft.AspNetCore.Components.Forms.2jrol0tvq7.wasm": "sha256-opnPdYsKEzK9tFNwG2zoXNnBLfahWeK5pio2i5+OgCg=",
       "Microsoft.AspNetCore.Components.5wcvuf2ybw.wasm": "sha256-BW00VM19WjwlJQ0JAh1+UbjMyFTA6MfGtvMENKbcjkg=",
       "Microsoft.AspNetCore.Components.Web.8btxwmb2ku.wasm": "sha256-XIX7EgPjJ5fk9kJPK+bFnCRxxNG01koxcOvF9YO8rGA=",
