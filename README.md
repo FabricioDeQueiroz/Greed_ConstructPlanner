@@ -233,11 +233,11 @@ Este guia fornece as etapas essenciais para rodar um projeto Blazor WebAssembly 
 
 ## Vídeos Explicando o Projeto
 
-<a href="LINK AQUI">
- <img src="IMAGEM VÍDEO AQUI" alt="Vídeo Apresentação Construct Planner" />
+<a href="https://www.youtube.com/watch?v=9yiXWdq0_aA">
+ <img src="https://i9.ytimg.com/vi/9yiXWdq0_aA/mqdefault.jpg?sqp=CKisurwG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGEkgUihlMA8=&rs=AOn4CLDd9ji7hqFkMRRWWqIQxr0R7iK1iw" alt="Vídeo Apresentação Construct Planner" />
 </a>
 
-[Vídeo de Apresentação](LINK AQUI TAMBÉM)
+[Vídeo de Apresentação](https://www.youtube.com/watch?v=9yiXWdq0_aA)
 
 <br>
 
