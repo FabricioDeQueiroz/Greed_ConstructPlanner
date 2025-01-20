@@ -60,6 +60,10 @@
       <_ContentIncludedByDefault Remove="Pages\Counter.razor" />
       <_ContentIncludedByDefault Remove="Pages\Home.razor" />
       <_ContentIncludedByDefault Remove="Pages\Weather.razor" />
+      <_ContentIncludedByDefault Remove="publish\web.config" />
+      <_ContentIncludedByDefault Remove="publish\ConstructPlannerFront.staticwebassets.endpoints.json" />
+      <_ContentIncludedByDefault Remove="publish\package-lock.json" />
+      <_ContentIncludedByDefault Remove="publish\wwwroot\_framework\blazor.boot.json" />
     </ItemGroup>
 
 </Project>
