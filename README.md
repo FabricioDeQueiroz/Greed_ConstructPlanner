@@ -43,12 +43,12 @@ Após conceder informações da duração em dias de cada etapa, o usuário é c
 </a>
         </td>
         <td>
-            <img src="Assets/blazor.png" width="70" height="70">
+            <img src="Assets/blazor.png" width="70" height="70" class="center">
 </a>
         </td>
         <td>
             <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=dotnet&perline=3" alt="dotnet">
+    <img src="https://skillicons.dev/icons?i=dotnet&perline=3" alt="dotnet" class="center">
 </a>
         </td>
         
