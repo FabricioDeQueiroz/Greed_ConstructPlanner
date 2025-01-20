@@ -1,0 +1,47 @@
+@page "/Informacoes"
+
+<PageTitle>Informações</PageTitle>
+
+<div class="flex flex-col items-start mt-24 md:mx-10 mx-24 p-6 rounded-lg bg-neutral">
+    <h2 class="text-3xl font-bold text-slate-200 mb-6">Como Utilizar a Aplicação</h2>
+
+    <p class="text-xl text-slate-300 mb-6">
+        Esta aplicação foi desenvolvida para auxiliar no gerenciamento de obras e agendamentos de suas etapas.
+        Utilize as seguintes páginas para interagir com o sistema:
+    </p>
+
+    <div class="text-xl text-slate-300 mb-6">
+        <ul class="list-disc pl-5">
+            <li>
+                <a class="link" href="/Obras"><strong>Obras:</strong></a> Permite cadastrar novas obras, especificando o nome da obra, data final de entrega, cor de identificação e duração das etapas como Projeto, Formas, Concretagem, Transporte e Montagem.
+            </li>
+            <li>
+                <a class="link" href="/Agendamento"><strong>Agendamento:</strong></a> Calcula e exibe o agendamento das obras cadastradas, mostrando cronogramas detalhados e possíveis atrasos.
+            </li>
+        </ul>
+    </div>
+
+    <h2 class="text-3xl font-bold text-slate-200 mb-6 mt-6">Algoritmo Utilizado</h2>
+
+    <p class="text-xl text-slate-300 mb-6">
+        A aplicação utiliza o algoritmo <strong>Scheduling to Minimize Lateness</strong>. Este algoritmo é projetado para minimizar o atraso máximo em uma sequência de tarefas.
+        
+        O funcionamento básico é:
+    </p>
+
+    <ol class="list-decimal pl-5 text-xl text-slate-300 mb-6">
+        <li>
+            Ordenar as obras com base na data de entrega (deadline).
+        </li>
+        <li>
+            Agendar cada tarefa de cada obra na ordem, assegurando que cada uma inicie o mais cedo possível.
+        </li>
+        <li>
+            Calcular o atraso para cada obra.
+        </li>
+    </ol>
+
+    <p class="text-xl text-slate-300 mb-6">
+        Isso permite uma gestão eficiente do cronograma, garantindo que o impacto dos atrasos seja minimizado ao longo das várias etapas das obras.
+    </p>
+</div>
