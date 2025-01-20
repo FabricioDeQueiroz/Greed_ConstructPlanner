@@ -24,7 +24,7 @@ Após conceder informações da duração em dias de cada etapa, o usuário é c
 
 ## Linguagens/Frameworks
 
-<table style="border: none; text-align: center;">
+<table style="border: none; text-align: center; width: 100%; height: 100px;">
     <tr>
         <td>
             <strong>C#</strong>
@@ -37,22 +37,22 @@ Após conceder informações da duração em dias de cada etapa, o usuário é c
         </td>
     </tr>
     <tr>
-        <td>
+        <td style="vertical-align: middle;">
             <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=cs&perline=3" alt="C#">
-</a>
+                <img src="https://skillicons.dev/icons?i=cs&perline=3" alt="C#">
+            </a>
         </td>
-        <td>
-            <img src="Assets/blazor.png" width="70" height="70" class="center">
-</a>
+        <td style="vertical-align: middle;">
+            <img src="Assets/blazor.png" width="70" height="70" alt="Blazor">
         </td>
-        <td>
+        <td style="vertical-align: middle;">
             <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=dotnet&perline=3" alt="dotnet" class="center">
-</a>
+                <img src="https://skillicons.dev/icons?i=dotnet&perline=3" alt="dotnet">
+            </a>
         </td>
-        
+    </tr>
 </table>
+
 
 
 ## Uso / Manual de como Rodar
